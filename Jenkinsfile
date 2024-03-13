@@ -19,8 +19,8 @@ pipleline{
         stage('Deploy Image'){
             steps{
                    docker.withRegistry('https://registry.hub.docker.com', 'Docker_id')           
-                   app.push("${env.BUILD_NUMBER}")            
-                   app.push("latest")        
+                   dockerImage.push("${env.BUILD_NUMBER}")            
+                   dockerImage.push("latest")        
         }
     }
           
