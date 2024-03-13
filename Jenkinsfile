@@ -1,4 +1,4 @@
-pipleline{
+pipeline{
   agent any 
   environment{
     Docker_id = 'lavkush1809'
