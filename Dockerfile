@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy the custom Nginx configuration file
-COPY /home/lavkush/newsite.conf /etc/nginx/conf.d/default.conf
+COPY newsite.conf /etc/nginx/conf.d/default.conf
 
 # Copy the HTML file to the Nginx default HTML directory
 COPY newsite.html /usr/share/nginx/html/
