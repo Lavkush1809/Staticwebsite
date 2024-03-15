@@ -5,7 +5,7 @@ FROM nginx:latest
 COPY /home/lavkush/newsite.conf /etc/nginx/conf.d/default.conf
 
 # Copy the HTML file to the Nginx default HTML directory
-COPY /home/lavkush/newsite.html /usr/share/nginx/html/
+COPY newsite.html /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
