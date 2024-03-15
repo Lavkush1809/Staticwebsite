@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        Docker_id = 'Docker_cred'
+        Docker_id = 'dockerhub'
         Docker_image = 'lavkush1809/myimage'
         dockerImage = ''
     }
