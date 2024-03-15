@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        Docker_id = 'lavkush1809'
+        Docker_id = 'Docker_cred'
         Docker_image = 'lavkush1809/myimage'
         dockerImage = ''
     }
@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'Docker_id') {           
+                    docker.withRegistry('https://hub.docker.com/', 'Docker_id') {           
                         dockerImage.push("${env.BUILD_NUMBER}")            
                         dockerImage.push("latest")
                     }
