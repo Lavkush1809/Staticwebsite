@@ -3,6 +3,7 @@ pipeline {
     environment {
         Docker_image = 'lavkush1809/myimage'
         dockerImage = ''
+        registry_cred = credentials('docker')
     }
     stages {
         stage('Pull') {
@@ -20,7 +21,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'dockerhub') {           
+                    docker.withRegistry('', registry_cred) {           
                         dockerImage.push("${env.BUILD_NUMBER}")            
                         dockerImage.push("latest")
                     }
