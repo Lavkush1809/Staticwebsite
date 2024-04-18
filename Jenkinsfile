@@ -16,8 +16,8 @@ pipeline {
  
         stage("Build image") {
             steps {
-                script {
-                    docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+                script {                    
+                    sh "docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_REPO}:${env.BUILD_NUMBER} ."
                 }
             }
         }
