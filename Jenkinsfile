@@ -7,14 +7,14 @@ pipeline {
     }
  
     stages {
-        stage("Code") {
+        stage("Pull the code ") {
             steps {
                 echo "Cloning the code"
                 git url: "https://github.com/Lavkush1809/Staticwebsite.git", branch: "main"
             }
         }
  
-        stage("Build my-react-app") {
+        stage("Build image") {
             steps {
                 script {
                     docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
@@ -22,7 +22,7 @@ pipeline {
             }
         }
  
-        stage("Push my-react-app-dev to Docker Hub") {
+        stage("Push image to Docker Hub") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
                     sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
