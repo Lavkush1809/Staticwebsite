@@ -1,34 +1,37 @@
 pipeline {
-    agent any 
+    agent any
+    
     environment {
-        Docker_repo = 'lavkush1809/newimage'
-        registry_cred ='docker'
+        DOCKER_HUB_USERNAME = 'lavkush1809'
+        DOCKER_HUB_REPO = 'newimagerepo'
     }
+ 
     stages {
-        stage('Pull') {
+        stage("Code") {
             steps {
-                git branch: 'main', credentialsId: 'Lavkush1809', url: 'https://github.com/Lavkush1809/Staticwebsite.git'
+                echo "Cloning the code"
+                git url: "https://github.com/Lavkush1809/Assignment-3.git", branch: "main"
             }
         }
-        stage('Build Image') {
+ 
+        stage("Build my-react-app") {
             steps {
                 script {
-                     docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+                    docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
                 }
             }
         }
-        stage('Deploy Image') {
+ 
+        stage("Push my-react-app-dev to Docker Hub") {
             steps {
-                withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    script {
-                        docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_USERNAME}", "${DOCKER_PASSWORD}") {
-
-                            docker.image("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}").push()
-                        }
-                    }
-
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                    sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
+                }
+                echo "Pushing the image to Docker Hub"
+                sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
             }
         }
     }
 }
+
 
