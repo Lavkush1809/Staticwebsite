@@ -10,7 +10,7 @@ pipeline {
         stage("Code") {
             steps {
                 echo "Cloning the code"
-                git url: "https://github.com/Lavkush1809/Assignment-3.git", branch: "main"
+                git url: "https://github.com/Lavkush1809/Staticwebsite.git", branch: "main"
             }
         }
  
